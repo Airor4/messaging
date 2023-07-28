@@ -1,8 +1,9 @@
 import pika, sys, os
+import time
 
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters("messaging_rabbitmq_1"))
+    connection = pika.BlockingConnection(pika.ConnectionParameters("my-rabbit"))
     channel = connection.channel()
 
     channel.queue_declare(queue="hello")
@@ -18,6 +19,8 @@ def main():
 
 if __name__ == "__main__":
     try:
+        # have to wait for the rabbitmq service to up
+        time.sleep(25)
         main()
     except KeyboardInterrupt:
         print("Interrupted")

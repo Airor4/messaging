@@ -1,6 +1,10 @@
 import pika
+import time
 
-connection = pika.BlockingConnection(pika.ConnectionParameters("messaging_rabbitmq_1"))
+
+# have to wait for the rabbit mq service to come up and the consumer to start listening
+time.sleep(30)
+connection = pika.BlockingConnection(pika.ConnectionParameters("my-rabbit"))
 channel = connection.channel()
 
 channel.queue_declare(queue="hello")
