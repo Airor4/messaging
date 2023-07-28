@@ -1,0 +1,17 @@
+services:
+  consumer:
+    build: ./consumer
+    volumes:
+      - ./consumer:/app
+    depends_on:
+      - rabbitmq
+  producer:
+    build: ./producer
+    volumes:
+      - ./producer:/app
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3
+    hostname: my-rabbit
+
